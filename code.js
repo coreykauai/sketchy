@@ -52,14 +52,14 @@ let numberOfSquares = 16;
 
 let squareNumberBtn = document.getElementById("numberSquares");
 let clearer = document.getElementById("clearer");
-let color = document.getElementById("color");
+let colorBtn = document.getElementById("color");
 let div_container = document.getElementById("parent-container");
 
 squareNumberBtn.addEventListener("click", () => {
   numberOfSquares = prompt("Type a number of squares 1-100");
 
-  if (numberOfSquares > 100) {
-    return (numberOfSquares = prompt("Type a number of squares 1-100"));
+  while (numberOfSquares > 100) {
+    numberOfSquares = prompt("To big, try again 1-100");
   }
   div_container.innerHTML = "";
   generateGrid();
@@ -71,9 +71,11 @@ clearer.addEventListener("click", () => {
   generateGrid();
 });
 
-color.addEventListener("click", () => {
-  square.style.backgroundColor = "blue";
-  div_container.innerHTML = "";
+colorBtn.addEventListener("click", () => {
+  square.style.backgroundColor = "white";
+  square.addEventListener("mouseover", () => {
+    square.style.backgroundColor = "white";
+  });
 });
 
 const generateGrid = () => {
@@ -95,3 +97,13 @@ const generateGrid = () => {
 };
 
 generateGrid();
+
+// const container = document.querySelector(".grid");
+// container.addEventListener("mouseover", (evt) => {
+//   evt.target.classList.add("hover");
+//   console.log("1");
+//   let r = Math.floor(Math.random() * 256);
+//   let b = Math.floor(Math.random() * 256);
+//   let g = Math.floor(Math.random() * 256);
+//   evt.target.style.backgroundColor = `rbg(${r}, ${b}, ${g})`;
+// });

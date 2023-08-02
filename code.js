@@ -6,48 +6,6 @@
 // for loop to create squares and append them to columns
 // create func to change background color of cells
 
-// let numberOfSquares = 16;
-
-// let squareNumberBtn = document.getElementById("numberSquares");
-// let clearer = document.getElementById("clearer");
-// let div_container = document.getElementById("parent-container");
-
-// squareNumberBtn.addEventListener("click", () => {
-//   numberOfSquares = prompt("Type a number of squares 1-100");
-
-//   if (numberOfSquares > 100) {
-//     return (numberOfSquares = prompt("Type a number of squares 1-100"));
-//   }
-//   div_container.innerHTML = "";
-//   generateGrid();
-// });
-
-// clearer.addEventListener("click", () => {
-//   numberOfSquares = 16;
-//   div_container.innerHTML = "";
-//   generateGrid();
-// });
-
-// const generateGrid = () => {
-//   for (let i = 0; i < numberOfSquares; i++) {
-//     const column = document.createElement("div");
-//     column.classList.add("column");
-
-//     for (let j = 0; j < numberOfSquares; j++) {
-//       const square = document.createElement("div");
-//       column.appendChild(square);
-//       square.classList.add("square");
-//       square.addEventListener("mouseover", () => {
-//         square.style.backgroundColor = "black";
-//       });
-//     }
-
-//     div_container.appendChild(column);
-//   }
-// };
-
-// generateGrid();
-
 let numberOfSquares = 16;
 
 let squareNumberBtn = document.getElementById("numberSquares");
@@ -71,12 +29,34 @@ clearer.addEventListener("click", () => {
   generateGrid();
 });
 
-colorBtn.addEventListener("click", () => {
-  square.style.backgroundColor = "white";
-  square.addEventListener("mouseover", () => {
-    square.style.backgroundColor = "white";
+const styleSquare = (evt) => {
+  console.log("black");
+  evt.target.style.backgroundColor = "black";
+};
+
+const paintGrid = () => {
+  const squares = document.querySelectorAll(".square");
+  squares.forEach((sq) => {
+    sq.addEventListener("mouseover", styleSquare);
   });
-});
+};
+
+const rainbowSquare = (evt) => {
+  let r = Math.floor(Math.random() * 256);
+  let b = Math.floor(Math.random() * 256);
+  let g = Math.floor(Math.random() * 256);
+  console.log(`rbg(${r}, ${b}, ${g})`);
+  evt.target.style.backgroundColor = `rgb(${r}, ${b}, ${g})`;
+};
+
+const rainbowGrid = () => {
+  console.log("rainbow grid");
+  const squares = document.querySelectorAll(".square");
+  squares.forEach((sq) => {
+    sq.removeEventListener("mouseover", styleSquare);
+    sq.addEventListener("mouseover", rainbowSquare);
+  });
+};
 
 const generateGrid = () => {
   for (let i = 0; i < numberOfSquares; i++) {
@@ -87,23 +67,12 @@ const generateGrid = () => {
       const square = document.createElement("div");
       column.appendChild(square);
       square.classList.add("square");
-      square.addEventListener("mouseover", () => {
-        square.style.backgroundColor = "black";
-      });
     }
 
     div_container.appendChild(column);
   }
+  paintGrid();
 };
 
 generateGrid();
-
-// const container = document.querySelector(".grid");
-// container.addEventListener("mouseover", (evt) => {
-//   evt.target.classList.add("hover");
-//   console.log("1");
-//   let r = Math.floor(Math.random() * 256);
-//   let b = Math.floor(Math.random() * 256);
-//   let g = Math.floor(Math.random() * 256);
-//   evt.target.style.backgroundColor = `rbg(${r}, ${b}, ${g})`;
-// });
+colorBtn.addEventListener("click", rainbowGrid);
